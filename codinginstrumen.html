@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instrumen Evaluasi Microteaching</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .instruction {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .instruction p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .category-row {
+            background-color: #e8e8e8;
+            font-weight: bold;
+        }
+
+        .score-cell {
+            text-align: center;
+            width: 60px;
+        }
+
+        .score-cell input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .no-cell {
+            text-align: center;
+            width: 50px;
+        }
+
+        .total-row {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .total-row td:first-child {
+            text-align: right;
+        }
+
+        .notes-section {
+            margin-top: 20px;
+        }
+
+        .notes-section label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .notes-section textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-height: 100px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .signature {
+            text-align: center;
+        }
+
+        .signature p:first-child {
+            margin-bottom: 80px;
+        }
+
+        .signature p:last-child {
+            border-top: 1px solid #333;
+            padding-top: 5px;
+            min-width: 200px;
+        }
+
+        .print-btn {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .print-btn:hover {
+            background-color: #1976D2;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            .print-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>INSTRUMEN EVALUASI MICROTEACHING</h1>
+            <p>Lembar Penilaian Praktik Mengajar</p>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label>Nama Mahasiswa:</label>
+                <input type="text" id="nama" placeholder="Masukkan nama mahasiswa">
+            </div>
+            <div>
+                <label>NIM:</label>
+                <input type="text" id="nim" placeholder="Masukkan NIM">
+            </div>
+            <div>
+                <label>Tanggal:</label>
+                <input type="date" id="tanggal">
+            </div>
+            <div>
+                <label>Materi Ajar:</label>
+                <input type="text" id="materi" placeholder="Masukkan materi ajar">
+            </div>
+        </div>
+
+        <div class="form-group full">
+            <div>
+                <label>Nama Evaluator:</label>
+                <input type="text" id="evaluator" placeholder="Masukkan nama evaluator">
+            </div>
+        </div>
+
+        <div class="instruction">
+            <p><strong>Petunjuk Penilaian:</strong></p>
+            <p>1 = Kurang | 2 = Cukup | 3 = Baik | 4 = Sangat Baik</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="no-cell">No</th>
+                    <th>Aspek yang Dinilai</th>
+                    <th class="score-cell">1</th>
+                    <th class="score-cell">2</th>
+                    <th class="score-cell">3</th>
+                    <th class="score-cell">4</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Content will be generated by JavaScript -->
+            </tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <td colspan="2">Total Skor:</td>
+                    <td colspan="4" id="totalScore">0</td>
+                </tr>
+                <tr class="total-row">
+                    <td colspan="2">Nilai Rata-rata:</td>
+                    <td colspan="4" id="avgScore">0.00</td>
+                </tr>
+                <tr class="total-row">
+                    <td colspan="2">Predikat:</td>
+                    <td colspan="4" id="predikat">-</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="notes-section">
+            <label>Catatan/Saran:</label>
+            <textarea id="notes" placeholder="Tulis catatan atau saran perbaikan di sini..."></textarea>
+        </div>
+
+        <div class="footer">
+            <button class="print-btn" onclick="window.print()">
+                <span>🖨️</span>
+                Cetak
+            </button>
+            <div class="signature">
+                <p>Evaluator,</p>
+                <p id="signatureName"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const aspekPenilaian = [
+            {
+                kategori: "A. PENDAHULUAN",
+                items: [
+                    "Membuka pelajaran dengan menarik",
+                    "Menyampaikan tujuan pembelajaran",
+                    "Melakukan apersepsi",
+                    "Memotivasi siswa"
+                ]
+            },
+            {
+                kategori: "B. PENGUASAAN MATERI",
+                items: [
+                    "Menguasai materi dengan baik",
+                    "Menyampaikan materi secara sistematis",
+                    "Memberikan contoh yang relevan",
+                    "Mengaitkan materi dengan kehidupan sehari-hari"
+                ]
+            },
+            {
+                kategori: "C. METODE PEMBELAJARAN",
+                items: [
+                    "Menggunakan metode yang sesuai",
+                    "Melibatkan mahasiswa secara aktif",
+                    "Menggunakan media pembelajaran",
+                    "Mengelola waktu dengan efektif"
+                ]
+            },
+            {
+                kategori: "D. KETERAMPILAN BERKOMUNIKASI",
+                items: [
+                    "Berbicara dengan jelas dan lantang",
+                    "Menggunakan bahasa yang mudah dipahami",
+                    "Melakukan kontak mata dengan audiens",
+                    "Memberikan penguatan (reinforcement)"
+                ]
+            },
+            {
+                kategori: "E. PENGELOLAAN KELAS",
+                items: [
+                    "Mengatur posisi dan pergerakan dengan baik",
+                    "Mengelola interaksi dengan siswa",
+                    "Menciptakan suasana pembelajaran kondusif",
+                    "Menangani pertanyaan dengan baik"
+                ]
+            },
+            {
+                kategori: "F. EVALUASI",
+                items: [
+                    "Memberikan pertanyaan/latihan",
+                    "Mengecek pemahaman siswa",
+                    "Memberikan umpan balik",
+                    "Menutup pelajaran dengan baik"
+                ]
+            }
+        ];
+
+        function generateTable() {
+            const tbody = document.getElementById('tableBody');
+            let html = '';
+            let globalNo = 1;
+
+            aspekPenilaian.forEach((section, sectionIndex) => {
+                html += `
+                    <tr class="category-row">
+                        <td colspan="6">${section.kategori}</td>
+                    </tr>
+                `;
+
+                section.items.forEach((item, itemIndex) => {
+                    html += `
+                        <tr>
+                            <td class="no-cell">${globalNo}</td>
+                            <td>${item}</td>
+                            <td class="score-cell"><input type="radio" name="item${sectionIndex}_${itemIndex}" value="1" onchange="calculateScore()"></td>
+                            <td class="score-cell"><input type="radio" name="item${sectionIndex}_${itemIndex}" value="2" onchange="calculateScore()"></td>
+                            <td class="score-cell"><input type="radio" name="item${sectionIndex}_${itemIndex}" value="3" onchange="calculateScore()"></td>
+                            <td class="score-cell"><input type="radio" name="item${sectionIndex}_${itemIndex}" value="4" onchange="calculateScore()"></td>
+                        </tr>
+                    `;
+                    globalNo++;
+                });
+            });
+
+            tbody.innerHTML = html;
+        }
+
+        function calculateScore() {
+            let totalScore = 0;
+            let count = 0;
+
+            const radios = document.querySelectorAll('input[type="radio"]:checked');
+            radios.forEach(radio => {
+                totalScore += parseInt(radio.value);
+                count++;
+            });
+
+            document.getElementById('totalScore').textContent = totalScore;
+
+            const average = count > 0 ? (totalScore / count).toFixed(2) : 0;
+            document.getElementById('avgScore').textContent = average;
+
+            let predikat = '-';
+            if (average >= 3.6) predikat = 'Sangat Baik';
+            else if (average >= 2.6) predikat = 'Baik';
+            else if (average >= 1.6) predikat = 'Cukup';
+            else if (average > 0) predikat = 'Kurang';
+
+            document.getElementById('predikat').textContent = predikat;
+        }
+
+        document.getElementById('evaluator').addEventListener('input', function(e) {
+            const signatureName = document.getElementById('signatureName');
+            signatureName.textContent = e.target.value || '';
+        });
+
+        generateTable();
+    </script>
+</body>
+</html>
